@@ -1,0 +1,20 @@
+{
+  "name": "luiza-labs-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "lab -v **/*.test.js"
+  },
+  "keywords": [],
+  "author": "Fredson Rodrigues",
+  "license": "ISC",
+  "dependencies": {
+    "@hapi/hapi": "^19.0.5"
+  },
+  "devDependencies": {
+    "@hapi/code": "^8.0.1",
+    "@hapi/lab": "^22.0.3"
+  }
+}
