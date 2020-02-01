@@ -11,7 +11,8 @@
   "author": "Fredson Rodrigues",
   "license": "ISC",
   "dependencies": {
-    "@hapi/hapi": "^19.0.5"
+    "@hapi/hapi": "^19.0.5",
+    "mongoose": "^5.8.11"
   },
   "devDependencies": {
     "@hapi/code": "^8.0.1",

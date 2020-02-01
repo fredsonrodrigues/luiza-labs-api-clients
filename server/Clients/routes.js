@@ -1,18 +1,16 @@
+const ClientController = require('./Controller/ClientController')
+
 const baseRoute = '/clients'
 const routes = [
     {
         method: 'GET',
         path: `${baseRoute}`,
-        handler: (request, h) => {
-            return 'client GET';
-        }
+        handler: ClientController.getClient
     },
     {
         method: 'GET',
         path: `${baseRoute}/{id}`,
-        handler: (request, h) => {
-            return 'client POST';
-        }
+        handler: ClientController.getClient
     },
     {
         method: 'POST',
