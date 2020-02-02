@@ -15,23 +15,17 @@ const routes = [
     {
         method: 'POST',
         path: `${baseRoute}`,
-        handler: (request, h) => {
-            return 'client POST';
-        }
+        handler: ClientController.saveClient
     },
     {
         method: 'PUT',
         path: `${baseRoute}/{id}`,
-        handler: (request, h) => {
-            return 'client PUT';
-        }
+        handler: ClientController.updateClient
     },
     {
         method: 'DELETE',
         path: `${baseRoute}/{id}`,
-        handler: (request, h) => {
-            return 'client DELETE';
-        }
+        handler: ClientController.deleteClient
     }
 ]
 module.exports = routes
