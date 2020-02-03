@@ -5,13 +5,15 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "test": "lab -v **/*.test.js"
+    "test": "lab -v **/*.test.js --timeout 10000"
   },
   "keywords": [],
   "author": "Fredson Rodrigues",
   "license": "ISC",
   "dependencies": {
-    "@hapi/hapi": "^19.0.5"
+    "@hapi/hapi": "^19.0.5",
+    "dotenv": "^8.2.0",
+    "mongoose": "^5.8.11"
   },
   "devDependencies": {
     "@hapi/code": "^8.0.1",
