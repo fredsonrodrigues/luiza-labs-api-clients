@@ -6,7 +6,7 @@ const { after, before, describe, it } = exports.lab = Lab.script();
 const { init } = require('../lib/server');
 const Client = require('../server/Clients/Model/Client');
 
-describe('GET /', () => {
+describe('GET /Clients', () => {
     let server;
     let test = {
         _id: 0
@@ -20,21 +20,13 @@ describe('GET /', () => {
         await server.stop();
     });
 
-    it('responds with 200', async () => {
-        const res = await server.inject({
-            method: 'get',
-            url: '/'
-        });
-        expect(res.statusCode).to.equal(200);
-    });
-
     it('responds /Clients POST with 200', async () => {
         const res = await server.inject({
             method: 'post',
             url: '/clients',
             payload: {
-                name: 'Marcus Tester',
-                email: 'tester@teste.com'
+                name: `Tester ${new Date().getTime()}`,
+                email: `${new Date().getTime()}@tester.com`
             }
         });
         expect(res.statusCode).to.equal(200);
