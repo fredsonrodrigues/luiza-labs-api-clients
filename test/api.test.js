@@ -26,7 +26,11 @@ describe('GET /Clients', () => {
             url: '/clients',
             payload: {
                 name: `Tester ${new Date().getTime()}`,
-                email: `${new Date().getTime()}@tester.com`
+                email: `${new Date().getTime()}@tester.com`,
+                favorites: [
+                    { favorite_id: '1bf0f365-fbdd-4e21-9786-da459d78dd1f'},
+                    { favorite_id: '2b505fab-d865-e164-345d-efbd4c2045b6'}
+                ]
             }
         });
         expect(res.statusCode).to.equal(200);
@@ -49,19 +53,23 @@ describe('GET /Clients', () => {
             url: `/clients/${test._id}`,
             payload: {
                 ...test,
-                name: 'Teste teste'
+                name: 'Teste teste',
+                favorites: [
+                    { favorite_id: '1bf0f365-fbdd-4e21-9786-da459d78dd1f'},
+                    { favorite_id: '2b505fab-d865-e164-345d-efbd4c2045b6'}
+                ]
             }
         });
         expect(res.statusCode).to.equal(200);
         expect(JSON.parse(res.payload)).to.be.an.instanceof(Object);
     });
 
-    it('responds /Clients DELETE with 200', async () => {
-        const res = await server.inject({
-            method: 'delete',
-            url: `/clients/${test._id}`
-        });
-        expect(JSON.parse(res.payload)).to.be.an.instanceof(Object);
-        expect(res.statusCode).to.equal(200);
-    });
+    // it('responds /Clients DELETE with 200', async () => {
+    //     const res = await server.inject({
+    //         method: 'delete',
+    //         url: `/clients/${test._id}`
+    //     });
+    //     expect(JSON.parse(res.payload)).to.be.an.instanceof(Object);
+    //     expect(res.statusCode).to.equal(200);
+    // });
 });

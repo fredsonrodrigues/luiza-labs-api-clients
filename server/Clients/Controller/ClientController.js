@@ -1,13 +1,13 @@
-const Client = require('../Model/Client')
+const { Client, Favorite } = require('../Model/Client')
 
 module.exports = {
 
     getClient: async (request, h) => {
         try {
             if (request.params.id !== undefined) {
-                var response = await Client.findById(request.params.id).exec();
+                var response = await Client.findById(request.params.id).populate('favorites').exec();
             } else {
-                var response = await Client.find().exec();
+                var response = await Client.find().populate('favorites').exec();
             }
             return h.response(response);
         } catch (error) {
@@ -17,7 +17,22 @@ module.exports = {
 
     saveClient: async (request, h) => {
         try {
-            var client = new Client(request.payload);
+            let client_to_save = { ...request.payload }
+            var client = new Client(client_to_save);
+            let fav = []
+            if (request.payload.favorites.length > 0) {
+                fav = request.payload.favorites.map(e => {
+                    let f = new Favorite({
+                        client: client._id,
+                        ...e
+                    })
+                    f.save((err) => {
+                        if (err) return false;
+                    })
+                    return f;
+                })
+            }
+            client.favorites = fav
             var response = await client.save();
             return h.response(response);
         } catch (error) {
