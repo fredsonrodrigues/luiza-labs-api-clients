@@ -21,9 +21,27 @@ module.exports = {
         }
     },
 
+    addFavorite: async (request, h) => {
+        try {
+            var result = await Client.addFavorite(request.params.id, request.payload.favorite_id);
+            return h.response(result);
+        } catch (error) {
+            return h.response(error).code(500);
+        }
+    },
+
     updateClient: async (request, h) => {
         try {
             var result = await Client.findByIdAndUpdate(request.params.id, request.payload, { new: true });
+            return h.response(result);
+        } catch (error) {
+            return h.response(error).code(500);
+        }
+    },
+
+    removeFavorite: async (request, h) => {
+        try {
+            var result = await Client.removeFavorite(request.params.id, request.payload.favorite_id);
             return h.response(result);
         } catch (error) {
             return h.response(error).code(500);
