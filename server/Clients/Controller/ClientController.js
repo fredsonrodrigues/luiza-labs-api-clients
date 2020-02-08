@@ -4,11 +4,7 @@ module.exports = {
 
     getClient: async (request, h) => {
         try {
-            if (request.params.id !== undefined) {
-                var response = await Client.findById(request.params.id).exec();
-            } else {
-                var response = await Client.find().exec();
-            }
+            var response = await Client.getAllWithFavorites(request.params.id);
             return h.response(response);
         } catch (error) {
             return h.response(error).code(500);
