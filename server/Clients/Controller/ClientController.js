@@ -51,7 +51,7 @@ module.exports = {
 
     deleteClient: async (request, h) => {
         try {
-            var result = await Client.findByIdAndDelete(request.params.id);
+            var result = await Client.findOneAndDelete({_id: request.params.id}).exec();
             return h.response(result);
         } catch (error) {
             return h.response(error).code(500);
