@@ -18,9 +18,19 @@ const routes = [
         handler: ClientController.saveClient
     },
     {
+        method: 'POST',
+        path: `${baseRoute}/{id}/favorite`,
+        handler: ClientController.addFavorite
+    },
+    {
         method: 'PUT',
         path: `${baseRoute}/{id}`,
         handler: ClientController.updateClient
+    },
+    {
+        method: 'DELETE',
+        path: `${baseRoute}/{id}/favorite`,
+        handler: ClientController.removeFavorite
     },
     {
         method: 'DELETE',
