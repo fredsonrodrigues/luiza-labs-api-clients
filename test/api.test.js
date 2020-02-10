@@ -4,10 +4,12 @@ const Lab = require('@hapi/lab');
 const { expect } = require('@hapi/code');
 const { after, before, describe, it } = exports.lab = Lab.script();
 const { init } = require('../lib/server');
-const Client = require('../server/Clients/Model/Client');
+const User = require('../server/User/Model/User');
 
 describe('GET /Clients', () => {
     let server;
+    let token;
+    let user = User[0]
     let test = {
         _id: 0
     }
@@ -20,10 +22,24 @@ describe('GET /Clients', () => {
         await server.stop();
     });
 
+    it('responds /Auth/Login POST with 200', async () => {
+        const res = await server.inject({
+            method: 'post',
+            url: '/auth/login',
+            payload: user
+        });
+        expect(res.statusCode).to.equal(200);
+        expect(JSON.parse(res.payload)).to.be.an.instanceof(Object);
+        token = JSON.parse(res.payload).token
+    });    
+
     it('responds /Clients POST with 200', async () => {
         const res = await server.inject({
             method: 'post',
             url: '/clients',
+            headers: {
+                authorization: `Bearer ${token}`
+            },
             payload: {
                 name: `Tester ${new Date().getTime()}`,
                 email: `${new Date().getTime()}@tester.com`
@@ -38,6 +54,9 @@ describe('GET /Clients', () => {
         const res = await server.inject({
             method: 'post',
             url: `/clients/${test._id}/favorite`,
+            headers: {
+                authorization: `Bearer ${token}`
+            },
             payload: { favorite_id: "e9a72482-7e95-44ff-ea5a-75147aef2184" }
         });
         expect(res.statusCode).to.equal(200);
@@ -48,6 +67,9 @@ describe('GET /Clients', () => {
     it('responds /Clients GET with 200', async () => {
         const res = await server.inject({
             method: 'get',
+            headers: {
+                authorization: `Bearer ${token}`
+            },
             url: '/clients'
         });
         expect(res.statusCode).to.equal(200);
@@ -58,6 +80,9 @@ describe('GET /Clients', () => {
         const res = await server.inject({
             method: 'put',
             url: `/clients/${test._id}`,
+            headers: {
+                authorization: `Bearer ${token}`
+            },
             payload: {
                 ...test,
                 name: 'Teste teste'
@@ -72,6 +97,9 @@ describe('GET /Clients', () => {
         const res = await server.inject({
             method: 'delete',
             url: `/clients/${test._id}/favorite`,
+            headers: {
+                authorization: `Bearer ${token}`
+            },
             payload: { favorite_id: "e9a72482-7e95-44ff-ea5a-75147aef2184" }
         });
         expect(JSON.parse(res.payload)).to.be.an.instanceof(Object);
@@ -81,6 +109,9 @@ describe('GET /Clients', () => {
     it('responds /Clients DELETE with 200', async () => {
         const res = await server.inject({
             method: 'delete',
+            headers: {
+                authorization: `Bearer ${token}`
+            },
             url: `/clients/${test._id}`
         });
         expect(JSON.parse(res.payload)).to.be.an.instanceof(Object);
