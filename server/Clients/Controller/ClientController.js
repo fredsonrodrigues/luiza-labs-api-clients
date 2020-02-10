@@ -4,7 +4,7 @@ module.exports = {
 
     getClient: async (request, h) => {
         try {
-            var response = await Client.getAllWithFavorites(request.params.id);
+            var response = await Client.getAllWithFavorites(request.params.id, request.query.page);
             return h.response(response);
         } catch (error) {
             return h.response(error).code(500);

@@ -70,10 +70,11 @@ describe('GET /Clients', () => {
             headers: {
                 authorization: `Bearer ${token}`
             },
-            url: '/clients'
+            url: '/clients?page=1',
         });
         expect(res.statusCode).to.equal(200);
-        expect(JSON.parse(res.payload)).to.be.an.instanceof(Array);
+        expect(JSON.parse(res.payload).docs).to.be.an.instanceof(Object);
+        expect(JSON.parse(res.payload)).to.be.an.instanceof(Object);
     });
 
     it('responds /Clients PUT with 200', async () => {

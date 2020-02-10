@@ -1,4 +1,5 @@
 const { Schema, model } = require(`../../../lib/mongo`)
+var mongoosePaginate = require('mongoose-paginate');
 const fetch = require("node-fetch");
 
 var clientSchema = new Schema({
@@ -7,12 +8,16 @@ var clientSchema = new Schema({
     favorites: { type: Array }
 });
 
-clientSchema.statics.getAllWithFavorites = async function (id = undefined) {
+clientSchema.plugin(mongoosePaginate);
+
+clientSchema.statics.getAllWithFavorites = async function (id = undefined, pag = undefined) {
     try {
         if (id !== undefined) {
             var response = await this.model('Client').findById(id).exec();
+        } else if (pag){
+            var response = await this.model('Client').paginate({}, { page: parseInt(pag), limit: 10 });
         } else {
-            var response = await this.model('Client').find().exec();
+            var response = { message: "Não é possível retornar resultados sem paginar." }
         }
         return response
     } catch (error) {
