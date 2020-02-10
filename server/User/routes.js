@@ -6,9 +6,9 @@ const routes = [
     {
         method: 'POST',
         path: `${baseRoute}/login`,
-        config: { auth: false },
         handler: UserController.findUser,
         config: {
+            auth: false,
             tags: ['api'],
             description: 'Auth',
             notes: 'Faz o login na aplicação',

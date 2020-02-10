@@ -6,10 +6,10 @@ const routes = [
     {
         method: 'GET',
         path: `${baseRoute}`,
-        config: { auth: 'jwt' },
         handler: ClientController.getClient,
         config: {
             tags: ['api'],
+            auth: 'jwt' ,
             description: 'Get all Clients',
             notes: 'Retorna todos os clientes. ATENÇÃO: Usar Paginação',
             validate: {
@@ -24,15 +24,15 @@ const routes = [
     {
         method: 'GET',
         path: `${baseRoute}/{id}`,
-        config: { auth: 'jwt' },
         handler: ClientController.getClient,
         config: {
             tags: ['api'],
+            auth: 'jwt' ,
             description: 'Get one Client',
             notes: 'Retorna Um cliente específico',
             validate: {
                 params: Joi.object({
-                    id : Joi.number()
+                    id : Joi.string()
                             .required()
                             .description('the id for the Client item'),
                 })
@@ -42,15 +42,15 @@ const routes = [
     {
         method: 'POST',
         path: `${baseRoute}`,
-        config: { auth: 'jwt' },
         handler: ClientController.saveClient,
         config: {
             tags: ['api'],
+            auth: 'jwt' ,
             description: 'Create new Client',
             notes: 'Cria um novo Cliente',
             validate: {
                 payload: Joi.object({
-                    nome: Joi.string(),
+                    name: Joi.string(),
                     email: Joi.string()
                 })
             }    
@@ -59,10 +59,10 @@ const routes = [
     {
         method: 'POST',
         path: `${baseRoute}/{id}/favorite`,
-        config: { auth: 'jwt' },
         handler: ClientController.addFavorite,
         config: {
             tags: ['api'],
+            auth: 'jwt' ,
             description: 'Add Favorite To Client',
             notes: 'Adiciona na lista de favoritos do Cliente',    
         }
@@ -70,10 +70,10 @@ const routes = [
     {
         method: 'PUT',
         path: `${baseRoute}/{id}`,
-        config: { auth: 'jwt' },
         handler: ClientController.updateClient,
         config: {
             tags: ['api'],
+            auth: 'jwt' ,
             description: 'Update a Client',
             notes: 'Atualiza Cliente Existente',    
         }
@@ -81,10 +81,10 @@ const routes = [
     {
         method: 'DELETE',
         path: `${baseRoute}/{id}/favorite`,
-        config: { auth: 'jwt' },
         handler: ClientController.removeFavorite,
         config: {
             tags: ['api'],
+            auth: 'jwt' ,
             description: 'Remove Favorite To Client',
             notes: 'Remove da lista de favoritos do Cliente',    
         }
@@ -92,10 +92,10 @@ const routes = [
     {
         method: 'DELETE',
         path: `${baseRoute}/{id}`,
-        config: { auth: 'jwt' },
         handler: ClientController.deleteClient,
         config: {
             tags: ['api'],
+            auth: 'jwt' ,
             description: 'Remove Client',
             notes: 'Remove completamente um Cliente',    
         }
