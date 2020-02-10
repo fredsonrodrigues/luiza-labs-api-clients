@@ -16,7 +16,7 @@ const routes = [
                 payload: Joi.object({
                     name: Joi.string(),
                     password: Joi.string()
-                })
+                }).label('Auth')
             }    
         }
     }

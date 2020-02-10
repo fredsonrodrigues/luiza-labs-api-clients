@@ -26,7 +26,7 @@ module.exports = {
             var result = await Client.addFavorite(request.params.id, request.payload.favorite_id);
             return h.response(result);
         } catch (error) {
-            return h.response(error).code(500);
+            return h.response(error.message).code(500);
         }
     },
 

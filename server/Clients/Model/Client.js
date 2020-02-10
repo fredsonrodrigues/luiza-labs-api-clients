@@ -14,7 +14,7 @@ clientSchema.statics.getAllWithFavorites = async function (id = undefined, pag =
     try {
         if (id !== undefined) {
             var response = await this.model('Client').findById(id).exec();
-        } else if (pag){
+        } else if (pag) {
             var response = await this.model('Client').paginate({}, { page: parseInt(pag), limit: 10 });
         } else {
             var response = { message: "Não é possível retornar resultados sem paginar." }
@@ -28,6 +28,9 @@ clientSchema.statics.getAllWithFavorites = async function (id = undefined, pag =
 clientSchema.statics.removeFavorite = async function (id_client, id_favorite) {
     try {
         var client = await this.model('Client').findById(id_client).exec();
+        if (client === null) {
+            throw new Error("Não há Cliente com esse Id")
+        }
         var hasEqual = client.favorites.filter((f) => f === id_favorite)
         if (hasEqual.length !== 0) {
             client.favorites = client.favorites.filter((f) => f !== id_favorite)
@@ -43,6 +46,9 @@ clientSchema.statics.removeFavorite = async function (id_client, id_favorite) {
 clientSchema.statics.addFavorite = async function (id_client, id_favorite) {
     try {
         var client = await this.model('Client').findById(id_client).exec();
+        if (client === null) {
+            throw new Error("Não há Cliente com esse Id")
+        }
         var hasEqual = client.favorites.filter((f) => f === id_favorite)
         if (hasEqual.length === 0) {
             client.favorites.push(id_favorite)
