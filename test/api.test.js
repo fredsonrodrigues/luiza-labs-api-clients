@@ -28,7 +28,7 @@ describe('GET /Clients', () => {
     it('responds /Auth/Login POST with 200', async () => {
         const res = await server.inject({
             method: 'post',
-            url: '/auth/login',
+            url: '/favorites-api/auth/login',
             payload: user
         });
         expect(res.statusCode).to.equal(200);
@@ -39,7 +39,7 @@ describe('GET /Clients', () => {
     it('responds /Clients POST with 200', async () => {
         const res = await server.inject({
             method: 'post',
-            url: '/clients',
+            url: '/favorites-api/clients',
             headers: {
                 authorization: `Bearer ${token}`
             },
@@ -56,7 +56,7 @@ describe('GET /Clients', () => {
     it('responds /Clients/{id}/favorites POST with 200', async () => {
         const res = await server.inject({
             method: 'post',
-            url: `/clients/${test._id}/favorite`,
+            url: `/favorites-api/clients/${test._id}/favorite`,
             headers: {
                 authorization: `Bearer ${token}`
             },
@@ -73,7 +73,7 @@ describe('GET /Clients', () => {
             headers: {
                 authorization: `Bearer ${token}`
             },
-            url: '/clients?page=1',
+            url: '/favorites-api/clients?page=1',
         });
         expect(res.statusCode).to.equal(200);
         expect(JSON.parse(res.payload).docs).to.be.an.instanceof(Object);
@@ -83,7 +83,7 @@ describe('GET /Clients', () => {
     it('responds /Clients PUT with 200', async () => {
         const res = await server.inject({
             method: 'put',
-            url: `/clients/${test._id}`,
+            url: `/favorites-api/clients/${test._id}`,
             headers: {
                 authorization: `Bearer ${token}`
             },
@@ -100,7 +100,7 @@ describe('GET /Clients', () => {
     it('responds /Clients/{id}/favorites DELETE with 200', async () => {
         const res = await server.inject({
             method: 'delete',
-            url: `/clients/${test._id}/favorite`,
+            url: `/favorites-api/clients/${test._id}/favorite`,
             headers: {
                 authorization: `Bearer ${token}`
             },
@@ -116,7 +116,7 @@ describe('GET /Clients', () => {
             headers: {
                 authorization: `Bearer ${token}`
             },
-            url: `/clients/${test._id}`
+            url: `/favorites-api/clients/${test._id}`
         });
         expect(JSON.parse(res.payload)).to.be.an.instanceof(Object);
         expect(res.statusCode).to.equal(200);
