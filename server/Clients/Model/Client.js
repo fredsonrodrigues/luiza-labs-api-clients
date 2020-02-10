@@ -51,6 +51,10 @@ clientSchema.statics.addFavorite = async function (id_client, id_favorite) {
         }
         var hasEqual = client.favorites.filter((f) => f === id_favorite)
         if (hasEqual.length === 0) {
+            let request_verify = await fetch(`http://challenge-api.luizalabs.com/api/product/${id_favorite}`)
+            if (request_verify.status !== 200) {
+                throw new Error("Produto não encontrado.")
+            }
             client.favorites.push(id_favorite)
             var result = await Client.findByIdAndUpdate(id_client, client, { new: true });
             return result
