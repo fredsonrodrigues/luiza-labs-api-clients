@@ -9,7 +9,10 @@ const User = require('../server/User/Model/User');
 describe('GET /Clients', () => {
     let server;
     let token;
-    let user = User[0]
+    let user = {
+        name: "user-test",
+        password: "12345"
+    }
     let test = {
         _id: 0
     }
@@ -85,8 +88,8 @@ describe('GET /Clients', () => {
                 authorization: `Bearer ${token}`
             },
             payload: {
-                ...test,
-                name: 'Teste teste'
+                name: 'Teste teste',
+                email: test.email
             }
         });
         expect(res.statusCode).to.equal(200);
