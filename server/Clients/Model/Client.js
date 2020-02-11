@@ -1,6 +1,6 @@
 const { Schema, model } = require(`../../../lib/mongo`)
 var mongoosePaginate = require('mongoose-paginate');
-const fetch = require("node-fetch");
+const { getDetailsFromApi, verify } = require('../Service/')
 
 var clientSchema = new Schema({
     name: { type: String, required: true },
@@ -10,10 +10,12 @@ var clientSchema = new Schema({
 
 clientSchema.plugin(mongoosePaginate);
 
+clientSchema.post('findOne', getDetailsFromApi);
+
 clientSchema.statics.getAllWithFavorites = async function (id = undefined, pag = undefined) {
     try {
         if (id !== undefined) {
-            var response = await this.model('Client').findById(id).exec();
+            var response = await this.model('Client').findOne({ _id: id }).exec();
         } else if (pag) {
             var response = await this.model('Client').paginate({}, { page: parseInt(pag), limit: 10 });
         } else {
@@ -51,8 +53,8 @@ clientSchema.statics.addFavorite = async function (id_client, id_favorite) {
         }
         var hasEqual = client.favorites.filter((f) => f === id_favorite)
         if (hasEqual.length === 0) {
-            let request_verify = await fetch(`http://challenge-api.luizalabs.com/api/product/${id_favorite}`)
-            if (request_verify.status !== 200) {
+            let request_verify = await verify(id_favorite)
+            if (!request_verify) {
                 throw new Error("Produto não encontrado.")
             }
             client.favorites.push(id_favorite)
