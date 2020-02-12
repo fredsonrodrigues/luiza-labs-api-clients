@@ -4,6 +4,6 @@ COPY . src/
 WORKDIR src/
 
 ENV NPM_CONFIG_LOGLEVEL warn
+RUN cp .env.example .env
 RUN npm install
-RUN npm test
 CMD npm start
