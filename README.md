@@ -17,3 +17,7 @@ Se você esta rodando direto no seu pc, siga as instruções. A Api precisa de u
 #### Docker
 
 Caso tenha o Docker instalado em seu computador, apenas executar o `docker-compose up -d --build`
+
+### Documentação
+
+Acessando `http://<host-da-aplicação>:<porta>/documentation` você poderá acessar o swagger e ver todas as rotas da aplicação, podendo fazer testes.
