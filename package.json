@@ -19,7 +19,7 @@
     "dotenv": "^8.2.0",
     "hapi-jsonwebtoken": "^1.1.0",
     "hapi-swagger": "^12.1.0",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.0",
     "mongoose": "^5.8.11",
     "mongoose-paginate": "^5.0.3",
     "node-fetch": "^2.6.0",
